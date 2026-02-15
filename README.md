@@ -63,8 +63,67 @@ The API will be available at: `http://127.0.0.1:8000`
 
 ## Available Endpoints
 
+### GET Endpoints
+
 - `GET /` - Root endpoint (Hello World)
-- `GET /health` - Health check endpoint
+- `GET /greet?first_name={name}&last_name={name}` - Greet with query parameters
+  - Example: `http://127.0.0.1:8000/greet?first_name=Sarthak&last_name=Bansal`
+- `GET /hello/{fname}/{lname}` - Greet with path parameters
+  - Example: `http://127.0.0.1:8000/hello/Sarthak/Bansal`
+
+### POST Endpoints
+
+- `POST /person` - Add a person with JSON body
+  - Request Body:
+    ```json
+    {
+      "fname": "Sarthak",
+      "lname": "Bansal",
+      "age": 25
+    }
+    ```
+
+## Testing POST Requests in Browser
+
+The easiest way to test POST requests is using FastAPI's built-in **interactive API documentation**:
+
+### Method 1: Swagger UI (Recommended)
+
+1. Start your FastAPI application
+2. Open your browser and navigate to: `http://127.0.0.1:8000/docs`
+3. Find the **POST /person** endpoint in the list
+4. Click on it to expand
+5. Click the **"Try it out"** button
+6. Enter your JSON data in the request body field:
+   ```json
+   {
+     "fname": "Sarthak",
+     "lname": "Bansal",
+     "age": 25
+   }
+   ```
+7. Click **"Execute"** to send the request
+8. View the response below
+
+### Method 2: Browser Console (JavaScript)
+
+Open your browser's Developer Console (Press F12) and run:
+
+```javascript
+fetch('http://127.0.0.1:8000/person', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    fname: 'Sarthak',
+    lname: 'Bansal',
+    age: 25
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data));
+```
 
 ## Development
 

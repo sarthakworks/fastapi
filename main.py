@@ -25,6 +25,25 @@ def get_item(fname: str, lname: str):
     msg = "Hello! " + fname + " " + lname
     return {"message": msg}
 
+# Import BaseModel from Pydantic to define structured request body models
+from pydantic import BaseModel
+
+# Define a data model (schema) for validating incoming JSON data
+class Person(BaseModel):
+    fname: str 
+    lname: str 
+    age: int
+
+# Create a POST API endpoint at "/person" see readme 
+@app.post("/person")
+def add_person(p: Person):
+    # 'p' automatically receives and validates the JSON body using the Person model
+    # Construct a personalized message using the received data
+    msg = "Hi! " + p.fname + " " + p.lname + ". Your age is " + str(p.age)
+    # Return the message as a JSON response
+    return {"message": msg}
+
+
 # Start application
 if __name__ == "__main__":
     uvicorn.run(app)
