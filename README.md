@@ -2,6 +2,19 @@
 
 A FastAPI-based web application.
 
+## Project Structure
+
+The application is organized using FastAPI's router system for better code organization:
+
+```
+fastapi/
+├── main.py              # Application entry point, includes routers
+├── routes_get.py        # All GET endpoints (/, /greet, /hello, /weather)
+├── routes_post.py       # All POST endpoints (/person)
+├── requirements.txt     # Python dependencies
+└── README.md           # This file
+```
+
 ## Prerequisites
 
 - Python 3.8 or higher
@@ -45,11 +58,17 @@ pip install -r requirements.txt
 
 Or install manually:
 ```bash
-pip install fastapi uvicorn
+pip install fastapi uvicorn httpx
 ```
 
 ### 5. Run the Application
 
+**Option 1: Using python directly**
+```bash
+python main.py
+```
+
+**Option 2: Using uvicorn with auto-reload**
 ```bash
 uvicorn main:app --reload
 ```
@@ -70,6 +89,10 @@ The API will be available at: `http://127.0.0.1:8000`
   - Example: `http://127.0.0.1:8000/greet?first_name=Sarthak&last_name=Bansal`
 - `GET /hello/{fname}/{lname}` - Greet with path parameters
   - Example: `http://127.0.0.1:8000/hello/Sarthak/Bansal`
+- `GET /weather?city={city_name}` - Get current weather for a city (uses free Open-Meteo API)
+  - Example: `http://127.0.0.1:8000/weather?city=Delhi`
+  - Example: `http://127.0.0.1:8000/weather?city=London`
+  - Returns: temperature, wind speed, weather code, and timestamp
 
 ### POST Endpoints
 
